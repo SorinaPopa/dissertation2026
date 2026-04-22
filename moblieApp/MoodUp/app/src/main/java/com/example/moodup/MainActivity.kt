@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
         val appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.navigation_home,
-                R.id.navigation_chat,
+                R.id.navigation_journal,
                 R.id.navigation_profile
             )
         )

@@ -22,6 +22,14 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        val realtimeDatabaseUrl = System.getenv("REALTIME_DATABASE") ?: ""
+        buildConfigField(
+            "String",
+            "REALTIME_DATABASE",
+            "\"$realtimeDatabaseUrl\""
+        )
+
     }
 
     buildTypes {
@@ -42,6 +50,7 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
 }
 

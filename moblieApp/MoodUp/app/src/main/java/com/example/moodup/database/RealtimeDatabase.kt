@@ -2,7 +2,7 @@ package com.example.moodup.database
 
 import android.graphics.Color
 import android.util.Log
-import com.example.moodup.utils.REALTIME_DATABASE
+import com.example.moodup.BuildConfig
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -10,7 +10,7 @@ import com.google.firebase.database.ValueEventListener
 
 class RealtimeDatabase {
     private val realtimeDB =
-        FirebaseDatabase.getInstance(REALTIME_DATABASE)
+        FirebaseDatabase.getInstance(BuildConfig.REALTIME_DATABASE)
     private val realtimeRef = realtimeDB.getReference("devices")
 
     fun readDeviceCodes(
