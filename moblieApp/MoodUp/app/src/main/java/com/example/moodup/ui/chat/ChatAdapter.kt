@@ -26,40 +26,20 @@ class ChatAdapter(
         }
     }
 
-    class ReceiverViewHolder(private val recyclerViewReceiverBinding: RecyclerViewReceiverBinding) :
-        RecyclerView.ViewHolder(recyclerViewReceiverBinding.root) {
-        fun bind(chat: Chat) {
-            recyclerViewReceiverBinding.receiverMessage.text = chat.message
-        }
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return if (viewType == 1) { //Receiver
-            ReceiverViewHolder(
-                RecyclerViewReceiverBinding.inflate(
-                    LayoutInflater.from(parent.context),
-                    parent,
-                    false
-                )
+        return SenderViewHolder(
+            RecyclerViewSenderBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
             )
-        } else { //Sender
-            SenderViewHolder(
-                RecyclerViewSenderBinding.inflate(
-                    LayoutInflater.from(parent.context),
-                    parent,
-                    false
-                )
-            )
-        }
+        )
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val chat = getItem(position)
-        if (chat.messageType.equals("sender", true)) {
-            (holder as SenderViewHolder).bind(chat)
-        } else {
-            (holder as ReceiverViewHolder).bind(chat)
-        }
+        (holder as SenderViewHolder).bind(chat)
+
         holder.itemView.setOnLongClickListener {
             if (holder.adapterPosition != -1) {
                 onClickCallback(chat.message, holder.itemView)

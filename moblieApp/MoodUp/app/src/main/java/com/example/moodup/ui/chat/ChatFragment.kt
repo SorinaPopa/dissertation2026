@@ -162,7 +162,7 @@ class ChatFragment : Fragment() {
                         .show()
                 }
                 val chatId = generateChatId()
-                chatViewModel.createChatCompletion(messageInput, chatId)
+                //chatViewModel.createChatCompletion(messageInput, chatId)
             }
         }
 

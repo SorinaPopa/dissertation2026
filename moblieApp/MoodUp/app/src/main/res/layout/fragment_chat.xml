@@ -30,20 +30,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/chatSubtitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:text="Remember: Everything the chat says is made up!"
-            android:textAlignment="center"
-            android:textColor="@color/dark_brown"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/chatTitle" />
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/messagesRecyclerView"
             android:layout_width="match_parent"
@@ -51,7 +37,7 @@
             app:layout_constraintBottom_toTopOf="@id/messageInput"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/chatSubtitle" />
+            app:layout_constraintTop_toBottomOf="@id/chatTitle" />
 
         <ImageButton
             android:id="@+id/micButton"
