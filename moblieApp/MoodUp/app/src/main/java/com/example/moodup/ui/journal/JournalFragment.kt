@@ -23,6 +23,9 @@ class JournalFragment : Fragment() {
         binding = FragmentJournalBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.journalViewModel = journalViewModel
+
+        journalViewModel.loadSentimentAnalyser(requireContext())
+
         userInput = binding.journalEntryInput
 
         val adapter = JournalAdapter { _, _ -> }

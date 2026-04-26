@@ -17,7 +17,22 @@ class JournalAdapter(
     class JournalEntryViewHolder(private val recyclerViewHolderJournalEntryBinding: RecyclerViewJournalEntryBinding) :
         RecyclerView.ViewHolder(recyclerViewHolderJournalEntryBinding.root) {
         fun bind(journalEntry: JournalEntry) {
-            recyclerViewHolderJournalEntryBinding.journalEntry.text = journalEntry.journalEntryText
+            val binding = recyclerViewHolderJournalEntryBinding
+
+            binding.journalEntry.text = journalEntry.journalEntryText
+            binding.journalMood.text = journalEntry.journalEntryMood
+            binding.journalScore.text = "Score: ${journalEntry.journalEntryScore}"
+            binding.journalSuggestion.text = journalEntry.journalEntrySuggestion
+
+            val formatter =
+                java.text.SimpleDateFormat("MMM dd, HH:mm", java.util.Locale.getDefault())
+            binding.journalDate.text = formatter.format(journalEntry.journalEntryDate)
+
+            if (journalEntry.journalEntrySuggestion.isBlank()) {
+                binding.journalSuggestion.visibility = View.GONE
+            } else {
+                binding.journalSuggestion.visibility = View.VISIBLE
+            }
         }
     }
 
