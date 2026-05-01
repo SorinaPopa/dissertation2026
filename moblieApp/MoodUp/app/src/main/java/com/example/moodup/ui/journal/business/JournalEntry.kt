@@ -4,7 +4,7 @@ import java.util.Date
 
 data class JournalEntry(
     //user input data
-    var journalEntryId: Int = 0,
+    var journalEntryId: Long = 0,
     var journalEntryText: String = "",
     var journalEntryDate: Date = Date(),
 
