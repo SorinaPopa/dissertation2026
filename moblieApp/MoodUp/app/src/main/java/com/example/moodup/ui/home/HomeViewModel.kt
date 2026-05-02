@@ -5,11 +5,14 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.moodup.database.ChatDatabase
+import com.example.moodup.database.JournalRealtimeDatabase
 import com.example.moodup.database.RealtimeDatabase
+import com.example.moodup.sentiment.business.RGBColour
 
 class HomeViewModel : ViewModel() {
 
     private val realtimeDatabase = RealtimeDatabase()
+    private val journalRealtimeDatabase = JournalRealtimeDatabase()
     private val chatDatabase = ChatDatabase()
 
     val isDeviceConnected = MutableLiveData(false)
@@ -82,7 +85,14 @@ class HomeViewModel : ViewModel() {
     }
 
     fun sendColourToDB(deviceCode: String, colour: Int) {
-        realtimeDatabase.sendColourToDB(deviceCode, colour)
+
+        val rgb = RGBColour(
+            red = Color.red(colour),
+            green = Color.green(colour),
+            blue = Color.blue(colour)
+        )
+
+        journalRealtimeDatabase.sendColour(rgb)
     }
 
     fun sendUserOfDevice(deviceCode: String) {

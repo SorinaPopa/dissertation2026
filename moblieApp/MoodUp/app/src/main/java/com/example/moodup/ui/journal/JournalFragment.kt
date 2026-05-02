@@ -8,11 +8,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moodup.databinding.FragmentJournalBinding
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputLayout
 
 class JournalFragment : Fragment() {
@@ -44,6 +46,30 @@ class JournalFragment : Fragment() {
         micEntryButtonObserver()
 
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                showQuitAppDialog()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
+    }
+
+    private fun showQuitAppDialog() {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle("Leaving so Soon?")
+            .setMessage("Are you sure you want to exit the app?")
+            .setPositiveButton("No") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .setNegativeButton("Yes") { _, _ ->
+                activity?.finish()
+            }
+            .show()
     }
 
     private fun micEntryButtonObserver() {

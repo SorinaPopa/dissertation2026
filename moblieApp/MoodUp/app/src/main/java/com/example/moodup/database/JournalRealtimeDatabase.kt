@@ -1,23 +1,21 @@
 package com.example.moodup.database
 
-import android.graphics.Color
 import android.util.Log
-import androidx.core.graphics.blue
-import androidx.core.graphics.green
-import androidx.core.graphics.red
 import com.google.firebase.database.FirebaseDatabase
 import com.example.moodup.BuildConfig
 import com.example.moodup.sentiment.business.RGBColour
 
+
 class JournalRealtimeDatabase {
+
     private val realtimeDB =
         FirebaseDatabase.getInstance(BuildConfig.REALTIME_DATABASE)
 
-    private val realtimeRef = realtimeDB.getReference("devices")
+    private val realtimeRef = realtimeDB
+        .getReference("devices")
+        .child("esp32")
 
-    fun sendColourToDevice(deviceCode: String, colour: RGBColour) {
-
-        val colourRef = realtimeRef.child(deviceCode).child("colour")
+    fun sendColour(colour: RGBColour) {
 
         val colourMap = mapOf(
             "R" to colour.red,
@@ -25,7 +23,8 @@ class JournalRealtimeDatabase {
             "B" to colour.blue
         )
 
-        colourRef.updateChildren(colourMap)
+        realtimeRef.child("colour")
+            .updateChildren(colourMap)
             .addOnSuccessListener {
                 Log.d("JournalRealtimeDB", "Colour sent successfully")
             }

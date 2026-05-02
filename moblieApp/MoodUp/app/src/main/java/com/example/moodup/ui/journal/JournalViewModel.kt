@@ -26,8 +26,6 @@ class JournalViewModel : ViewModel() {
 
     val journalEntryInput = MutableLiveData("")
 
-    private val deviceCode = "esp32"
-
     init {
         fetchJournalEntries()
     }
@@ -57,7 +55,7 @@ class JournalViewModel : ViewModel() {
             suggestion
         )
         Log.d("JournalRealtimeDB", "Sending: ${colour.red}, ${colour.green}, ${colour.blue}")
-        realtimeDatabase.sendColourToDevice(deviceCode, colour)
+        realtimeDatabase.sendColour(colour)
     }
 
     fun loadSentimentAnalyser(context: Context) {
