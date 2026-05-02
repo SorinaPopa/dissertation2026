@@ -1,9 +1,11 @@
 package com.example.moodup.ui.journal
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.moodup.database.JournalDatabase
+import com.example.moodup.database.JournalRealtimeDatabase
 import com.example.moodup.sentiment.SentimentAnalyser
 import com.example.moodup.sentiment.SentimentMapper
 import com.example.moodup.ui.journal.business.JournalEntry
@@ -12,6 +14,7 @@ import java.util.Date
 class JournalViewModel : ViewModel() {
 
     private val journalDatabase = JournalDatabase()
+    private val realtimeDatabase = JournalRealtimeDatabase()
     private lateinit var analyser: SentimentAnalyser
     private val sentimentMapper = SentimentMapper()
 
@@ -22,6 +25,8 @@ class JournalViewModel : ViewModel() {
         private set
 
     val journalEntryInput = MutableLiveData("")
+
+    private val deviceCode = "esp32"
 
     init {
         fetchJournalEntries()
@@ -39,6 +44,7 @@ class JournalViewModel : ViewModel() {
 
         val score = analyser.analyse(text)
         val (mood, suggestion) = sentimentMapper.mapScoreToMood(score)
+        val colour = sentimentMapper.mapScoreToColor(score)
 
         val entryId = System.currentTimeMillis()
 
@@ -50,6 +56,8 @@ class JournalViewModel : ViewModel() {
             mood,
             suggestion
         )
+        Log.d("JournalRealtimeDB", "Sending: ${colour.red}, ${colour.green}, ${colour.blue}")
+        realtimeDatabase.sendColourToDevice(deviceCode, colour)
     }
 
     fun loadSentimentAnalyser(context: Context) {
@@ -67,7 +75,6 @@ class JournalViewModel : ViewModel() {
                 }
             }
         }
-
         analyser = SentimentAnalyser(sentimentMap)
     }
 
