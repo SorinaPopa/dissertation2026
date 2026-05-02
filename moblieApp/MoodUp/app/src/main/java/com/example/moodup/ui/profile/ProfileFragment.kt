@@ -39,12 +39,9 @@ class ProfileFragment : Fragment() {
         moodUpAuth = FirebaseAuth.getInstance()
         currentUser = moodUpAuth.currentUser!!
 
-        //TODO: Create an edit profile fragment then remove the following line
-        binding.editProfileButton.visibility = View.GONE
-
         infoButtonObserver()
         analysisButtonObserver()
-        trainAIButtonObserver()
+        surveyButtonObserver()
         logoutButtonObserver()
 
         return binding.root
@@ -65,6 +62,7 @@ class ProfileFragment : Fragment() {
         profileViewModel.onInfoButtonClicked.observe(viewLifecycleOwner) { isClicked ->
             if (isClicked) {
                 showInfoDialog()
+                profileViewModel.onInfoButtonClicked.value=false
             }
         }
     }
@@ -79,13 +77,15 @@ class ProfileFragment : Fragment() {
         }
     }
 
-    private fun trainAIButtonObserver() {
-        profileViewModel.onTrainAIButtonClicked.observe(viewLifecycleOwner) { isClicked ->
+    private fun surveyButtonObserver() {
+        profileViewModel.onSurveyButtonClicked.observe(viewLifecycleOwner) { isClicked ->
             if (isClicked) {
-                showTrainAIDialog()
+                findNavController().navigate(R.id.action_profileFragment_to_surveyFragment)
+                profileViewModel.onSurveyButtonClicked.value = false
             }
         }
     }
+
 
     private fun logoutButtonObserver() {
         profileViewModel.onLogoutButtonClicked.observe(viewLifecycleOwner) { isClicked ->
@@ -110,17 +110,6 @@ class ProfileFragment : Fragment() {
             .setNegativeButton("Close") { dialog, _ ->
                 dialog.dismiss()
                 profileViewModel.onInfoButtonClicked.value = false
-            }
-            .show()
-    }
-
-    private fun showTrainAIDialog() {
-        MaterialAlertDialogBuilder(requireContext())
-            .setTitle("Coming Soon")
-            .setMessage("Here will be the place where you will be able to personalise your AI!")
-            .setPositiveButton("Close") { dialog, _ ->
-                dialog.dismiss()
-                profileViewModel.onTrainAIButtonClicked.value = false
             }
             .show()
     }

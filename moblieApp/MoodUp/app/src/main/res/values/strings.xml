@@ -7,5 +7,5 @@
     <string name="title_analysis">Analysis</string>
     <string name="app_info">MoodUp is an application that focuses on your well-being.\n\nHow to use:\n   1. Chat with the AI! Use the chatting function to tell your concerns to the AI and it will do its best to make you feel better.\n   2. If you have a device ready, go to Home and connect it to see the state of your room. The lights can be controlled manually from there.\n\nDo you want to lear more about the app?</string>
     <string name="easter_egg">9024 kick that drum, my ego in the show</string>
-    <string name="title_edit_profile">Edit Profile</string>
+    <string name="title_survey">Survey</string>
 </resources>

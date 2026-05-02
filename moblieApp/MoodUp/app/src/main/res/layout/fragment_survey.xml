@@ -8,15 +8,15 @@
         <import type="android.view.View" />
 
         <variable
-            name="editProfileViewModel"
-            type="com.example.moodup.ui.profile.editprofile.EditProfileViewModel" />
+            name="surveyViewModel"
+            type="com.example.moodup.ui.profile.survey.SurveyViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/frameLayout3"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.profile.editprofile.EditProfileFragment">
+        tools:context=".ui.profile.survey.SurveyFragment">
 
         <TextView
             android:id="@+id/title_analysis"
@@ -24,7 +24,7 @@
             android:layout_height="50dp"
             android:background="@drawable/bg_box"
             android:gravity="center"
-            android:text="My Profile"
+            android:text="Survey"
             android:textAlignment="center"
             android:textSize="18sp"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -36,7 +36,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:onClick="@{()->editProfileViewModel.onClickArrowButton()}"
+            android:onClick="@{()->surveyViewModel.onClickArrowButton()}"
             app:layout_constraintBottom_toBottomOf="@id/title_analysis"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="@id/title_analysis"

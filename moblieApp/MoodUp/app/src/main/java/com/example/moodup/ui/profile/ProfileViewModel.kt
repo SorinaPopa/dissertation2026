@@ -3,15 +3,16 @@ package com.example.moodup.ui.profile
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.moodup.database.ChatDatabase
+import com.example.moodup.database.JournalDatabase
 
 class ProfileViewModel : ViewModel() {
 
-    private val chatDatabase = ChatDatabase()
+    private val journalDatabase = JournalDatabase()
 
     val onInfoButtonClicked = MutableLiveData(false)
     val onAnalysisButtonClicked = MutableLiveData(false)
-    val onTrainAIButtonClicked = MutableLiveData(false)
     val onLogoutButtonClicked = MutableLiveData(false)
+    val onSurveyButtonClicked = MutableLiveData(false)
 
     fun onClickInfoButton() {
         onInfoButtonClicked.value = true
@@ -21,8 +22,8 @@ class ProfileViewModel : ViewModel() {
         onAnalysisButtonClicked.value = true
     }
 
-    fun onClickTrainAIButton() {
-        onTrainAIButtonClicked.value = true
+    fun onClickSurveyButton() {
+        onSurveyButtonClicked.value = true
     }
 
     fun onClickLogoutButton() {
@@ -30,11 +31,9 @@ class ProfileViewModel : ViewModel() {
     }
 
     fun calculateAllDailyScores() {
-        chatDatabase.calculateAllDailyScores(
-            onSuccess = {
-            },
-            onFailure = { exception ->
-            }
+        journalDatabase.calculateAllDailyScores(
+            onSuccess = {},
+            onFailure = {}
         )
     }
 }
