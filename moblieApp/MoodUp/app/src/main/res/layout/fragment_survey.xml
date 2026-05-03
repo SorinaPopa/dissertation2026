@@ -40,7 +40,8 @@
             app:layout_constraintBottom_toBottomOf="@id/title_analysis"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="@id/title_analysis"
-            app:srcCompat="@drawable/ic_arrow_back_back_36" />
+            app:srcCompat="@drawable/ic_arrow_back_back_36"
+            app:tint="@color/timber_wolf" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

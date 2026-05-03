@@ -62,7 +62,7 @@ class ProfileFragment : Fragment() {
         profileViewModel.onInfoButtonClicked.observe(viewLifecycleOwner) { isClicked ->
             if (isClicked) {
                 showInfoDialog()
-                profileViewModel.onInfoButtonClicked.value=false
+                profileViewModel.onInfoButtonClicked.value = false
             }
         }
     }

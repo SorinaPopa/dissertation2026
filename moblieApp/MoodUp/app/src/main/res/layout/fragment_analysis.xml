@@ -40,7 +40,8 @@
             app:layout_constraintBottom_toBottomOf="@id/title_analysis"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="@id/title_analysis"
-            app:srcCompat="@drawable/ic_arrow_back_back_36" />
+            app:srcCompat="@drawable/ic_arrow_back_back_36"
+            app:tint="@color/timber_wolf" />
 
         <ImageView
             android:id="@+id/show_analysis"
@@ -49,22 +50,49 @@
             android:layout_marginEnd="12dp"
             android:backgroundTint="@color/hunter_green"
             android:onClick="@{()->analysisViewModel.onShowButton()}"
-            app:srcCompat="@drawable/ic_refresh_black_36"
             app:layout_constraintBottom_toBottomOf="@id/title_analysis"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/title_analysis" />
+            app:layout_constraintTop_toTopOf="@id/title_analysis"
+            app:srcCompat="@drawable/ic_today_black_36"
+            app:tint="@color/timber_wolf" />
+
+        <ImageView
+            android:id="@+id/navigate_back_week"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="100dp"
+            android:backgroundTint="@color/hunter_green"
+            android:onClick="@{()->analysisViewModel.onNavigateBackButton()}"
+            app:layout_constraintBottom_toTopOf="@id/barChart"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/current_week"
+            app:layout_constraintTop_toTopOf="@id/title_analysis"
+            app:srcCompat="@drawable/ic_small_arrow_back_black_24" />
 
         <TextView
             android:id="@+id/current_week"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="48dp"
-            android:text="Week: 21.06-27.06"
-            android:textSize="22sp"
+            android:text='@{"Week: " + analysisViewModel.currentWeekLabel}'
+            android:textColor="@color/delft_blue"
+            android:textSize="26sp"
             app:layout_constraintBottom_toTopOf="@id/barChart"
-            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/navigate_back_week"
+            app:layout_constraintRight_toLeftOf="@id/navigate_forward_week"
+            app:layout_constraintTop_toTopOf="@id/title_analysis" />
+
+        <ImageView
+            android:id="@+id/navigate_forward_week"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="100dp"
+            android:backgroundTint="@color/hunter_green"
+            android:onClick="@{()->analysisViewModel.onNavigateForwardButton()}"
+            app:layout_constraintBottom_toTopOf="@id/barChart"
+            app:layout_constraintLeft_toRightOf="@id/current_week"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@id/title_analysis"
-            app:layout_constraintVertical_bias="0.7" />
+            app:srcCompat="@drawable/ic_small_arrow_forward_black_24" />
 
         <com.github.mikephil.charting.charts.BarChart
             android:id="@+id/barChart"
@@ -78,7 +106,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/title_analysis" />
-
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

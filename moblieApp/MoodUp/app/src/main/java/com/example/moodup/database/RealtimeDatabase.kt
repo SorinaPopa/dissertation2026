@@ -94,28 +94,6 @@ class RealtimeDatabase {
         })
     }
 
-    fun sendColourToDB(deviceCode: String, colour: Int) {
-        val colourRef = realtimeRef.child("esp32wroomDA9826").child("colour")
-
-        val red = Color.red(colour)
-        val green = Color.green(colour)
-        val blue = Color.blue(colour)
-
-        val colourMap = mapOf(
-            "R" to red,
-            "G" to green,
-            "B" to blue
-        )
-
-        colourRef.updateChildren(colourMap)
-            .addOnSuccessListener {
-                Log.d("Firebase", "Colour sent successfully")
-            }
-            .addOnFailureListener { e ->
-                Log.e("Firebase", "Error sending colour: $e")
-            }
-    }
-
     fun sendUserOfDevice(deviceCode: String, userId: String) {
         val deviceRef = realtimeRef.child(deviceCode).child("connectedUser")
         val userMap = mapOf("userId" to userId)
@@ -138,5 +116,4 @@ class RealtimeDatabase {
                 Log.e("Firebase", "Error sending disconnected: $e")
             }
     }
-
 }

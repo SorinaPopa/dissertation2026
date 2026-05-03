@@ -25,6 +25,7 @@
             android:layout_marginTop="8dp"
             android:text="No devices connected.\n Connect a device:\n"
             android:textAlignment="center"
+            android:textColor="@color/delft_blue"
             android:textSize="25sp"
             app:layout_constraintBottom_toTopOf="@id/device_code_disconnected"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -35,7 +36,7 @@
             android:id="@+id/device_code_disconnected"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:hint="device code"
+            app:hintEnabled="false"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_home_disconnected">
@@ -43,6 +44,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="device code"
                 android:inputType="text"
                 android:text="@={homeViewModel.userDeviceCode}" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -51,6 +53,7 @@
             android:id="@+id/send_code_button_disconnected"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
+            android:backgroundTint="@color/light_yellow"
             android:onClick="@{()->homeViewModel.onClickAddButton()}"
             app:layout_constraintBottom_toBottomOf="@id/device_code_disconnected"
             app:layout_constraintEnd_toEndOf="@id/device_code_disconnected"
@@ -81,6 +84,7 @@
             android:layout_marginBottom="8dp"
             android:text="Current Room Status"
             android:textAlignment="center"
+            android:textColor="@color/delft_blue"
             android:textSize="30sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@id/current_room_colour_connected"

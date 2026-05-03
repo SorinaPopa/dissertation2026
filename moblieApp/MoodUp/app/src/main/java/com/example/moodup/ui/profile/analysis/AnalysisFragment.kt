@@ -34,7 +34,10 @@ class AnalysisFragment : Fragment() {
         binding.analysisViewModel = analysisViewModel
 
         arrowButtonListener()
-        showButtonListener()
+        observeWeeklyScores()
+
+        analysisViewModel.updateWeekLabel()
+        analysisViewModel.fetchWeeklyScoresForCurrentWeek()
 
         return binding.root
     }
@@ -45,17 +48,6 @@ class AnalysisFragment : Fragment() {
                 findNavController().navigate(R.id.action_analysisFragment_to_profileFragment)
                 analysisViewModel.onArrowButtonClicked.value = false
             }
-        }
-    }
-
-    private fun showButtonListener() {
-        analysisViewModel.onShowButtonClicked.observe(viewLifecycleOwner) { isClicked ->
-            if (isClicked) {
-                analysisViewModel.fetchWeeklyScores()
-                observeWeeklyScores()
-                analysisViewModel.onShowButtonClicked.value = false
-            }
-
         }
     }
 

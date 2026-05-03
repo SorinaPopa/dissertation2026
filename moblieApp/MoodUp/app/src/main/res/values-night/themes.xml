@@ -13,5 +13,20 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
         <item name="android:windowBackground">@color/viridian</item>
+        <item name="materialAlertDialogTheme">@style/CustomDialogTheme</item>
+        <item name="textInputStyle">@style/CustomTextInput</item>
+    </style>
+
+    <style name="CustomDialogTheme" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="colorSurface">@color/delft_blue</item>
+        <item name="android:textColorPrimary">@color/timber_wolf</item>
+        <item name="android:textColorSecondary">@color/ash_gray</item>
+        <item name="colorPrimary">@color/tiffany_blue</item>
+    </style>
+
+    <style name="CustomTextInput" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/dark_green</item>
+        <item name="hintTextColor">@color/timber_wolf</item>
+        <item name="boxBackgroundColor">@color/pakistan_green</item>
     </style>
 </resources>

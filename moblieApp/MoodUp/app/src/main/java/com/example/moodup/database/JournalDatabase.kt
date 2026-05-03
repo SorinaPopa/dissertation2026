@@ -82,7 +82,7 @@ class JournalDatabase {
     fun calculateAllDailyScores(onSuccess: () -> Unit, onFailure: (Exception) -> Unit) {
         val userId = getCurrentUserId()
 
-        db.collection("users").document(userId).collection("journalEntries")
+        db.collection("journalUsers").document(userId).collection("journalEntries")
             .get()
             .addOnSuccessListener { querySnapshot ->
 
@@ -129,7 +129,7 @@ class JournalDatabase {
 
                 // save to Firestore
                 for ((formattedDate, dailyScore) in finalDailyScoresMap) {
-                    db.collection("users").document(userId)
+                    db.collection("journalUsers").document(userId)
                         .collection("dailyScores")
                         .document(formattedDate)
                         .set(dailyScore)
@@ -142,54 +142,62 @@ class JournalDatabase {
             }
     }
 
-    fun fetchLastWeeksDailyScores(
+    fun fetchWeeklyScoresBetweenDates(
+        startDate: Date,
+        endDate: Date,
         onSuccess: (Map<String, Map<String, Double>>) -> Unit,
         onFailure: (Exception) -> Unit
     ) {
         val userId = getCurrentUserId()
-        val calendar = Calendar.getInstance()
+
         val dateFormatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-        val displayDateFormatter = SimpleDateFormat("EEE", Locale.getDefault())
+        val displayFormatter = SimpleDateFormat("EEE", Locale.getDefault())
 
-        val lastWeekDates = mutableListOf<String>()
-        for (i in 0..6) {
-            lastWeekDates.add(dateFormatter.format(calendar.time))
-            calendar.add(Calendar.DAY_OF_YEAR, -1)
-        }
-        lastWeekDates.reverse()
+        val startString = dateFormatter.format(startDate)
+        val endString = dateFormatter.format(endDate)
 
-        val lastWeekDateString = lastWeekDates[0]
-
-        db.collection("users").document(userId).collection("dailyScores")
+        db.collection("journalUsers")
+            .document(userId)
+            .collection("dailyScores")
             .get()
             .addOnSuccessListener { querySnapshot ->
+
                 val scoresMap = mutableMapOf<String, Map<String, Double>>()
 
                 for (document in querySnapshot) {
                     val date = document.id
-                    if (date >= lastWeekDateString) {
+
+                    if (date >= startString && date <= endString) {
                         val dailyScore = document.data.mapValues { it.value as Double }
                         scoresMap[date] = dailyScore
                     }
                 }
 
-                val completeScoresMap = mutableMapOf<String, Map<String, Double>>()
-                for (date in lastWeekDates) {
-                    if (scoresMap.containsKey(date)) {
-                        completeScoresMap[date] = scoresMap[date]!!
+                // fill missing days
+                val calendar = Calendar.getInstance()
+                calendar.time = startDate
+
+                val completeMap = mutableMapOf<String, Map<String, Double>>()
+
+                for (i in 0..6) {
+                    val currentDate = dateFormatter.format(calendar.time)
+
+                    if (scoresMap.containsKey(currentDate)) {
+                        completeMap[currentDate] = scoresMap[currentDate]!!
                     } else {
-                        completeScoresMap[date] =
-                            mapOf("positivePercentage" to 0.0, "negativePercentage" to 0.0)
+                        completeMap[currentDate] = mapOf(
+                            "positivePercentage" to 0.0,
+                            "negativePercentage" to 0.0
+                        )
                     }
+                    calendar.add(Calendar.DAY_OF_YEAR, 1)
                 }
 
-                val sortedScoresMap = completeScoresMap.toSortedMap()
-
-                val displayScoresMap = sortedScoresMap.mapKeys { (key, _) ->
-                    displayDateFormatter.format(dateFormatter.parse(key)!!)
+                val sortedMap = completeMap.toSortedMap()
+                val displayMap = sortedMap.mapKeys { (key, _) ->
+                    displayFormatter.format(dateFormatter.parse(key)!!)
                 }
-
-                onSuccess(displayScoresMap)
+                onSuccess(displayMap)
             }
             .addOnFailureListener { e ->
                 onFailure(e)
