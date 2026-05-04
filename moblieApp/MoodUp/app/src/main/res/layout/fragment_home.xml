@@ -36,7 +36,6 @@
             android:id="@+id/device_code_disconnected"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            app:hintEnabled="false"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_home_disconnected">

@@ -74,7 +74,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
-            app:hintEnabled="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@id/micButton"
             app:layout_constraintRight_toLeftOf="@id/sendButton">

@@ -2,6 +2,8 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
 
+    <!--67 SIX SEVEN 67-->
+
     <solid android:color="@color/hunter_green" />
 
 
