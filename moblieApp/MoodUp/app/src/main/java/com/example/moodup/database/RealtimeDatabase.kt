@@ -43,7 +43,7 @@ class RealtimeDatabase {
 
     fun readSensorsData(
         deviceCode: String,
-        onDataReceived: (String, String, String, Int) -> Unit,
+        onDataReceived: (String, String, String) -> Unit,
         onError: (String) -> Unit
     ) {
         val sensorsRef = realtimeRef.child(deviceCode).child("sensors")
@@ -52,13 +52,11 @@ class RealtimeDatabase {
                 val temperature = snapshot.child("temperature").getValue(Float::class.java) ?: 0.0f
                 val humidity = snapshot.child("humidity").getValue(Float::class.java) ?: 0.0f
                 val light = snapshot.child("light").getValue(Int::class.java) ?: 0
-                val motion = snapshot.child("motion").getValue(Int::class.java) ?: 0
 
                 onDataReceived(
                     temperature.toString(),
                     humidity.toString(),
                     light.toString(),
-                    motion
                 )
             }
 

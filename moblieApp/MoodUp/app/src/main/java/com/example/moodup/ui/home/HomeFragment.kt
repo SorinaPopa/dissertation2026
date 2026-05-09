@@ -46,6 +46,24 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        if (getConnectionState()) {
+
+            val savedCode = getSavedDeviceCode()
+
+            if (!savedCode.isNullOrEmpty()) {
+
+                deviceCodeCopy = savedCode
+
+                homeViewModel.isDeviceConnected.value = true
+
+                homeViewModel.readSensorsData(savedCode)
+                homeViewModel.readCurrentColour(savedCode)
+                homeViewModel.sendUserOfDevice(savedCode)
+
+                showConnectedViews()
+            }
+        }
+
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 showQuitAppDialog()
@@ -76,7 +94,7 @@ class HomeFragment : Fragment() {
             }
             .setNegativeButton("Yes") { _, _ ->
                 homeViewModel.isDeviceConnected.value = false
-                saveConnectionState(false)
+                saveConnectionState(false, "")
                 showDisconnectedViews()
             }
             .show()
@@ -120,6 +138,8 @@ class HomeFragment : Fragment() {
         binding.roomHumidityValueConnected.visibility = View.VISIBLE
         binding.roomLightValueConnected.visibility = View.VISIBLE
         binding.currentRoomColourConnected.visibility = View.GONE
+        binding.roomSuggestion.visibility = View.VISIBLE
+        binding.suggestionBadge.visibility = View.VISIBLE
 
         binding.textHomeDisconnected.visibility = View.GONE
         binding.deviceCodeDisconnected.visibility = View.GONE
@@ -139,6 +159,8 @@ class HomeFragment : Fragment() {
         binding.roomHumidityValueConnected.visibility = View.GONE
         binding.roomLightValueConnected.visibility = View.GONE
         binding.currentRoomColourConnected.visibility = View.GONE
+        binding.roomSuggestion.visibility = View.GONE
+        binding.suggestionBadge.visibility = View.GONE
 
         binding.textHomeDisconnected.visibility = View.VISIBLE
         binding.deviceCodeDisconnected.visibility = View.VISIBLE
@@ -152,7 +174,7 @@ class HomeFragment : Fragment() {
                 deviceCodeCopy = deviceCode
                 if (deviceCode.isNotEmpty()) {
                     homeViewModel.connectDevice(deviceCode)
-                    saveConnectionState(true)
+                    saveConnectionState(true, deviceCode)
                     homeViewModel.readSensorsData(deviceCode)
                     homeViewModel.readCurrentColour(deviceCode)
                     //binding.currentRoomColourConnected.setBackgroundColor(homeViewModel.currentDeviceColour.value)
@@ -203,20 +225,25 @@ class HomeFragment : Fragment() {
 
                 override fun onOk(dialog: AmbilWarnaDialog, colour: Int) {
                     selectedColor = colour
-                    homeViewModel.sendColourToDB(deviceCodeCopy, selectedColor)
+                    homeViewModel.sendColourToDB(selectedColor)
                     // binding.colourButtonConnected.setBackgroundColor(colour)
                 }
             })
         colorPicker.show()
     }
 
-    private fun saveConnectionState(isConnected: Boolean) {
+    private fun saveConnectionState(isConnected: Boolean, deviceCode: String = "") {
         val editor = sharedPreferences.edit()
         editor.putBoolean("isDeviceConnected", isConnected)
+        editor.putString("deviceCode", deviceCode)
         editor.apply()
     }
 
     private fun getConnectionState(): Boolean {
         return sharedPreferences.getBoolean("isDeviceConnected", false)
+    }
+
+    private fun getSavedDeviceCode(): String? {
+        return sharedPreferences.getString("deviceCode", null)
     }
 }

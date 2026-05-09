@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.example.moodup.database.ChatDatabase
 import com.example.moodup.database.JournalRealtimeDatabase
 import com.example.moodup.database.RealtimeDatabase
+import com.example.moodup.environment.RoomParametersManager
 import com.example.moodup.sentiment.business.RGBColour
 
 class HomeViewModel : ViewModel() {
@@ -20,8 +21,8 @@ class HomeViewModel : ViewModel() {
     val roomTemperature = MutableLiveData("")
     val roomHumidity = MutableLiveData("")
     val roomLight = MutableLiveData("")
+    val roomSuggestion = MutableLiveData("")
 
-    private var isRoomMotion = MutableLiveData(true)
     var onAddButtonClicked = MutableLiveData(false)
     var onColourPickerButtonClicked = MutableLiveData(false)
     var onTipsButtonClicked = MutableLiveData(false)
@@ -67,16 +68,22 @@ class HomeViewModel : ViewModel() {
     fun readSensorsData(deviceCode: String) {
         realtimeDatabase.readSensorsData(
             deviceCode,
-            onDataReceived = { temperature, humidity, light, motion ->
+            onDataReceived = { temperature, humidity, light ->
                 roomTemperature.postValue(temperature)
                 roomHumidity.postValue(humidity)
                 roomLight.postValue(light)
-                if (motion == 1) {
-                    isRoomMotion.postValue(true)
-                } else {
-                    isRoomMotion.postValue(false)
-                }
 
+                val temperatureValue = temperature.toFloatOrNull() ?: 0f
+                val humidityValue = humidity.toFloatOrNull() ?: 0f
+                val lightValue = light.toFloatOrNull() ?: 0f
+
+                roomSuggestion.postValue(
+                    RoomParametersManager.getSuggestions(
+                        temperatureValue,
+                        humidityValue,
+                        lightValue
+                    )
+                )
             },
             onError = { error ->
                 Log.e("Firebase", "Failed to read value: $error")
@@ -84,7 +91,7 @@ class HomeViewModel : ViewModel() {
         )
     }
 
-    fun sendColourToDB(deviceCode: String, colour: Int) {
+    fun sendColourToDB(colour: Int) {
 
         val rgb = RGBColour(
             red = Color.red(colour),
