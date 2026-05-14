@@ -13,13 +13,13 @@ object RoomParametersManager {
         when {
             temperature < 20 -> {
                 suggestions.add(
-                    "The room feels cold. Turn on heating."
+                    "The room feels cold. Consider turning on the heating."
                 )
             }
 
             temperature > 25 -> {
                 suggestions.add(
-                    "The room feels warm. Turn on air conditioning."
+                    "The room feels warm. Consider turning on the air conditioning."
                 )
             }
         }
@@ -27,13 +27,13 @@ object RoomParametersManager {
         when {
             humidity < 40 -> {
                 suggestions.add(
-                    "Humidity is low. Turn on a humidifier."
+                    "Humidity is low. Consider turning on a humidifier."
                 )
             }
 
             humidity > 60 -> {
                 suggestions.add(
-                    "Humidity is high. Turn on a dehumidifier."
+                    "Humidity is high. Consider turning on a dehumidifier."
                 )
             }
         }
@@ -41,13 +41,13 @@ object RoomParametersManager {
         when {
             light < 100 -> {
                 suggestions.add(
-                    "The room is quite dark. Tun on a light or open the blinds."
+                    "The room is quite dark. Consider turning on a light or opening the blinds."
                 )
             }
 
             light > 180 -> {
                 suggestions.add(
-                    "The room is very bright. Turn off a light or lower blinds."
+                    "The room is very bright. Consider turning off a light or lowering the blinds."
                 )
             }
         }

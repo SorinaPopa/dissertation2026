@@ -21,7 +21,6 @@ class JournalAdapter(
 
             binding.journalEntry.text = journalEntry.journalEntryText
             binding.journalMood.text = journalEntry.journalEntryMood
-            binding.journalScore.text = "Score: ${journalEntry.journalEntryScore}"
             binding.journalSuggestion.text = journalEntry.journalEntrySuggestion
 
             val formatter =

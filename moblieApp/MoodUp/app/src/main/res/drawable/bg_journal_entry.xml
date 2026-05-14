@@ -4,10 +4,14 @@
 
     <solid android:color="@color/timber_wolf" />
 
+    <stroke
+        android:width="1dp"
+        android:color="@color/ash_gray" />
+
     <corners
         android:bottomLeftRadius="24dp"
-        android:bottomRightRadius="24dp"
-        android:topLeftRadius="24dp"
+        android:bottomRightRadius="6dp"
+        android:topLeftRadius="6dp"
         android:topRightRadius="24dp">
 
     </corners>

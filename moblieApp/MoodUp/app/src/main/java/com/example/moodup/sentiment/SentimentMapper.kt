@@ -29,7 +29,7 @@ class SentimentMapper {
             score < 0 -> RGBColour(5, 247, 110)             // spring green
             score <= 0.2 -> RGBColour(126, 245, 58)         // lawn green
             score <= 0.4 -> RGBColour(187, 244, 32)         // lime
-            score <= 0.6 -> RGBColour(247, 243, 5)          // aurelion
+            score <= 0.6 -> RGBColour(247, 243, 5)          // aurelion sol
             score <= 0.8 -> RGBColour(255, 102, 153)        // cyclamen
             score > 0.8 -> RGBColour(134, 92, 202)          // amethyst
             else -> RGBColour(255, 255, 255)                // fallback
