@@ -66,7 +66,7 @@
             android:layout_height="50dp"
             android:background="@drawable/bg_box"
             android:gravity="center"
-            android:text='@{"Your device: " + homeViewModel.userDeviceCode}'
+            android:text='@{"Your device: esp32"}'
             android:textAlignment="center"
             android:textColor="@color/timber_wolf"
             android:textSize="18sp"
@@ -241,6 +241,7 @@
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/ic_announcement_black_24"
                 android:gravity="center"
+                android:onClick="@{()->homeViewModel.onClickTipsButton()}"
                 android:textSize="14sp"
                 android:textStyle="bold" />
 

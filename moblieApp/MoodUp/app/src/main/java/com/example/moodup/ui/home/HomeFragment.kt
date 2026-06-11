@@ -144,6 +144,7 @@ class HomeFragment : Fragment() {
         binding.textHomeDisconnected.visibility = View.GONE
         binding.deviceCodeDisconnected.visibility = View.GONE
         binding.sendCodeButtonDisconnected.visibility = View.GONE
+        binding.showTips.visibility = View.GONE
     }
 
     private fun showDisconnectedViews() {
@@ -165,6 +166,7 @@ class HomeFragment : Fragment() {
         binding.textHomeDisconnected.visibility = View.VISIBLE
         binding.deviceCodeDisconnected.visibility = View.VISIBLE
         binding.sendCodeButtonDisconnected.visibility = View.VISIBLE
+        binding.showTips.visibility = View.VISIBLE
     }
 
     private fun addButtonObserver() {

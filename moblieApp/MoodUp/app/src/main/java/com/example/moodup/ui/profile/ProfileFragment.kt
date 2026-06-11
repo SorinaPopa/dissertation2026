@@ -80,7 +80,12 @@ class ProfileFragment : Fragment() {
     private fun surveyButtonObserver() {
         profileViewModel.onSurveyButtonClicked.observe(viewLifecycleOwner) { isClicked ->
             if (isClicked) {
-                findNavController().navigate(R.id.action_profileFragment_to_surveyFragment)
+
+                val surveyUrl = "https://forms.gle/pSRYqmE8SDd9S4mL8"
+
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(surveyUrl))
+                startActivity(intent)
+
                 profileViewModel.onSurveyButtonClicked.value = false
             }
         }
