@@ -27,15 +27,15 @@ This repository contains 4 folders:
 
 ---
 
-### documentation
+### 1. documentation
 
-- contains the supporting material related to the project and contains more details about the project development and study design
+It contains the supporting material related to the project and contains more details about the project development and study design.
 
 ---
 
-### hardware
+### 2. hardware
 
-- contains the firmware developed for the ESP32-based smart lighting device
+It contains the firmware developed for the ESP32-based smart lighting device.
 
 The hardware setup includes:
 
@@ -55,9 +55,9 @@ To run the hardware:
 
 ---
 
-### mobileApp
+### 3. mobileApp
 
--contains the Android application developed in Kotlin using the MVVM architecture
+It contains the Android application developed in Kotlin using the MVVM architecture.
 
 To run the application:
 
@@ -68,9 +68,9 @@ To run the application:
 
 ---
 
-### study
+### 4. study
 
--contains the resources used during the user evaluation, including:
+It contains the resources used during the user evaluation, including:
 
 - Questionnaire
 - Collected results
